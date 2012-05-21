@@ -54,6 +54,9 @@
 			{
 				$default_curl_opts[CURLOPT_CUSTOMREQUEST] = $method;
 
+				// Disable cURL's default 100-continue expectation
+				if ('POST' == $method) array_push($request_headers, 'Expect:');
+
 				if (!empty($payload))
 				{
 					if (is_array($payload))
