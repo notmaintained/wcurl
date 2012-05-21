@@ -7,15 +7,19 @@
 	{
 		$ch = curl_init(wcurl_request_uri($url, $query));
 		wcurl_setopts($ch, $method, $payload, $request_headers, $curl_opts);
-		$res = curl_exec($ch);
+		$response = curl_exec($ch);
+		$curl_info = curl_getinfo($ch);
 		$errno = curl_errno($ch);
 		$error = curl_error($ch);
 		curl_close($ch);
 
 		if ($errno) throw new WcurlException($error, $errno);
 
-		list($msg_headers, $msg_body) = preg_split("/\r\n\r\n|\n\n|\r\r/", $res, 2);
-		$response_headers = wcurl_response_headers($msg_headers);
+		$header_size = $curl_info["header_size"];
+		$msg_header = substr($response, 0, $header_size);
+		$msg_body = substr($response, $header_size);
+
+		$response_headers = wcurl_response_headers($msg_header);
 
 		return $msg_body;
 	}
@@ -61,18 +65,27 @@
 			foreach ($overriden_opts as $curl_opt=>$value) curl_setopt($ch, $curl_opt, $value);
 		}
 
-		function wcurl_response_headers($msg_headers)
+		function wcurl_response_headers($msg_header)
 		{
-			$header_lines = preg_split("/\r\n|\n|\r/", $msg_headers);
-			$headers = array();
-			list(, $headers['http_status_code'], $headers['http_status_message']) = explode(' ', trim(array_shift($header_lines)), 3);
-			foreach ($header_lines as $header_line)
+			$multiple_headers = preg_split("/\r\n\r\n|\n\n|\r\r/", trim($msg_header));
+
+			$response_headers = array();
+
+			foreach ($multiple_headers as $response_header)
 			{
-				list($name, $value) = explode(':', $header_line, 2);
-				$headers[strtolower($name)] = trim($value);
+				$header_lines = preg_split("/\r\n|\n|\r/", $response_header);
+				$headers = array();
+				list(, $headers['http_status_code'], $headers['http_status_message']) = explode(' ', trim(array_shift($header_lines)), 3);
+				foreach ($header_lines as $header_line)
+				{
+					list($name, $value) = explode(':', $header_line, 2);
+					$headers[strtolower($name)] = trim($value);
+				}
+
+				$response_headers[] = $headers;
 			}
 
-			return $headers;
+			return $response_headers;
 		}
 
 ?>
