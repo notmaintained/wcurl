@@ -53,13 +53,21 @@
 			else
 			{
 				$default_curl_opts[CURLOPT_CUSTOMREQUEST] = $method;
-				if (!empty($request_headers)) $default_curl_opts[CURLOPT_HTTPHEADER] = $request_headers;
+
 				if (!empty($payload))
 				{
-					if (is_array($payload)) $payload = http_build_query($payload);
+					if (is_array($payload))
+					{
+						$payload = http_build_query($payload);
+						array_push($request_headers, 'Content-Type: application/x-www-form-urlencoded; charset=utf-8');
+
+					}
+
 					$default_curl_opts[CURLOPT_POSTFIELDS] = $payload;
 				}
 			}
+
+			if (!empty($request_headers)) $default_curl_opts[CURLOPT_HTTPHEADER] = $request_headers;
 
 			$overriden_opts = $curl_opts + $default_curl_opts;
 			foreach ($overriden_opts as $curl_opt=>$value) curl_setopt($ch, $curl_opt, $value);
