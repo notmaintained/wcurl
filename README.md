@@ -19,8 +19,7 @@ $ mv sandeepshetty-wcurl-* wcurl
 
 ## Use
 
-
-wcurl( string $method , string $url [, mixed $query [, mixed $payload [, array $request_headers [, array &$response_headers [, array $curl_opts]]]]])
+string __wcurl__( string _$method_ , string _$url_ [, mixed _$query_ [, mixed _$payload_ [, array _$request_headers_ [, array _&$response_headers_ [, array _$curl_opts_ ]]]]] )
 
 
 ```php
