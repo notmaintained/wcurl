@@ -45,7 +45,7 @@ string __wcurl__( string _$method_ , string _$url_ [, mixed _$query_ [, mixed _$
 	$body = wcurl('POST', 'http://duckduckgo.com/', NULL, array('q'=>'42', 'format'=>'json'));
 
 
-	// POST request with custom request header and overriden cURL opts
+	// POST request with a custom request header and an overriden cURL opt
 	$response_headers = array();
 	$response_body = wcurl
 	(
