@@ -32,12 +32,31 @@ string __wcurl__( string _$method_ , string _$url_ [, mixed _$query_ [, mixed _$
 
 	require 'path/to/wcurl/wcurl.php';
 
-	$body = wcurl('GET', 'http://duckduckgo.com/');
 
-	// Query string examples
-	$body = wcurl('GET', 'http://duckduckgo.com/?q=foobar');
-	$body = wcurl('GET', 'http://duckduckgo.com/', array('q'=>'foobar'));
-	$body = wcurl('GET', 'http://duckduckgo.com/', 'q=foobar');
+	// Basic GET request
+	$response_body = wcurl('GET', 'https://api.github.com/gists/public');
+
+
+	// GET request with query string parameters
+	$response_body = wcurl('GET', 'https://api.github.com/gists/public', array('page'=>1, 'per_page'=>2));
+
+
+	// Basic POST request
+	$body = wcurl('POST', 'http://duckduckgo.com/', '', array('q'=>'42', 'format'=>'json'));
+
+
+	// POST request with custom request header and overriden cURL opts
+	$response_headers = array();
+	$response_body = wcurl
+	(
+		'POST',
+		'https://api.github.com/gists',
+		NULL,
+		stripslashes(json_encode(array('description'=>'test gist', 'public'=>true, 'files'=>array('42.txt'=>array('content'=>'The Answer to the Ultimate Question of Life, the Universe, and Everything'))))),
+		array('Content-Type: application/json; charset=utf-8'),
+		$response_headers,	// This variable is filled with the response headers
+		array(CURLOPT_USERAGENT=>'MY_APP_NAME')
+	);
 
 ?>
 ```
