@@ -42,7 +42,7 @@ string __wcurl__( string _$method_ , string _$url_ [, mixed _$query_ [, mixed _$
 
 
 	// Basic POST request
-	$body = wcurl('POST', 'http://duckduckgo.com/', '', array('q'=>'42', 'format'=>'json'));
+	$body = wcurl('POST', 'http://duckduckgo.com/', NULL, array('q'=>'42', 'format'=>'json'));
 
 
 	// POST request with custom request header and overriden cURL opts
