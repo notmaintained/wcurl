@@ -42,10 +42,12 @@ string __wcurl__( string _$method_ , string _$url_ [, mixed _$query_ [, mixed _$
 
 
 	// Basic POST request
+	// Parameters you want to skip can be passed as NULL. For example, here the query parameter is passed as NULL.
 	$body = wcurl('POST', 'http://duckduckgo.com/', NULL, array('q'=>'42', 'format'=>'json'));
 
 
-	// POST request with a custom request header and an overriden cURL opt
+	// POST request with a custom request header (Content-Type) and an overriden cURL opt (CURLOPT_USERAGENT)
+	// Also passing in a variable ($response_headers) to get back the response headers
 	$response_headers = array();
 	$response_body = wcurl
 	(
