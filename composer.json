@@ -1,0 +1,19 @@
+{
+    "name": "sandeepshetty/wcurl",
+    "type": "library",
+    "description": "A convenience wrapper around PHP's cURL library",
+    "keywords": ["curl","http","api"],
+    "homepage": "https://github.com/sandeepshetty/wcurl",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sandeep Shetty",
+            "email": "sandeep.shetty@gmail.com",
+            "homepage": "http://sandeep.shetty.in",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
