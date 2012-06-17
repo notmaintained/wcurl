@@ -32,7 +32,7 @@ Run the install command:
 $ php composer.phar install
 ```
 
-This will download wcurl into the `vendor\sandeepshetty\wcurl` directory.
+This will download wcurl into the `vendor/sandeepshetty/wcurl` directory.
 
 To learn more about Composer visit http://getcomposer.org/
 
