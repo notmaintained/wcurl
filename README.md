@@ -12,7 +12,7 @@ A convenience wrapper around PHP's cURL library
 
 ### Via [Composer](http://getcomposer.org/) (Preferred)
 
-1. Create a `composer.json` file if you don't already have one in your projects root directory and require wcurl:
+Create a `composer.json` file if you don't already have one in your projects root directory and require wcurl:
 
 ```
 {
@@ -20,20 +20,21 @@ A convenience wrapper around PHP's cURL library
 		"sandeepshetty/wcurl": "dev-master"
 	}
 }
-
 ```
 
-2. Install Composer:
+Install Composer:
 ```
 $ curl -s http://getcomposer.org/installer | php
 ```
 
-3. Run the install command:
+Run the install command:
 ```
 $ php composer.phar install
 ```
 
 This will download wcurl into the `vendor\sandeepshetty\wcurl` directory.
+
+To learn more about Composer visit http://getcomposer.org/
 
 
 ### Via an archive
