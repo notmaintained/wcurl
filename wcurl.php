@@ -80,21 +80,15 @@
 		{
 
 			$multiple_headers = preg_split("/\r\n\r\n|\n\n|\r\r/", trim($msg_header));
-
+			$last_response_header_lines = array_pop($multiple_headers);
 			$response_headers = array();
 
-			foreach ($multiple_headers as $response_header)
+			$header_lines = preg_split("/\r\n|\n|\r/", $last_response_header_lines);
+			list(, $response_headers['http_status_code'], $response_headers['http_status_message']) = explode(' ', trim(array_shift($header_lines)), 3);
+			foreach ($header_lines as $header_line)
 			{
-				$header_lines = preg_split("/\r\n|\n|\r/", $response_header);
-				$headers = array();
-				list(, $headers['http_status_code'], $headers['http_status_message']) = explode(' ', trim(array_shift($header_lines)), 3);
-				foreach ($header_lines as $header_line)
-				{
-					list($name, $value) = explode(':', $header_line, 2);
-					$headers[strtolower($name)] = trim($value);
-				}
-
-				$response_headers[] = $headers;
+				list($name, $value) = explode(':', $header_line, 2);
+				$response_headers[strtolower($name)] = trim($value);
 			}
 
 			return $response_headers;
