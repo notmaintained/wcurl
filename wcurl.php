@@ -44,6 +44,7 @@
 				CURLOPT_USERAGENT => 'wcurl',
 				CURLOPT_CONNECTTIMEOUT => 30,
 				CURLOPT_TIMEOUT => 30,
+        			CURLOPT_SSLVERSION => 3,
 			);
 
 			if ('GET' == $method)
